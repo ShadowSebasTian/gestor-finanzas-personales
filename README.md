@@ -45,12 +45,12 @@ proyecto/
 │  └─ util.py            # Validación de entradas (bucles de reintento) y formato
 ├─ tests/                # Pruebas automáticas (unittest)
 ├─ datos/ejemplo.json    # Datos de muestra para la demo
-└─ docs/diagramas/       # Diagramas de flujo (fuente .mmd y .png)
+└─ diagramas/            # Diagramas de flujo (fuente .mmd y .png)
 ```
 
 ## Relación con los diagramas de flujo
 
-Cada funcionalidad principal tiene su **diagrama de flujo** en `docs/diagramas/`:
+Cada funcionalidad principal tiene su **diagrama de flujo** en `diagramas/`:
 
 | Diagrama | Funcionalidad | Estructura de control que ilustra |
 |---|---|---|
