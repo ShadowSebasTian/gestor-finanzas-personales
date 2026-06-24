@@ -1,0 +1,21 @@
+{
+  "movimientos": [
+    { "tipo": "ingreso", "categoria": "Sueldo", "monto": 800.0, "descripcion": "Sueldo mensual", "fecha": "2026-06-01" },
+    { "tipo": "ingreso", "categoria": "Beca",   "monto": 200.0, "descripcion": "Beca académica", "fecha": "2026-06-03" },
+    { "tipo": "gasto", "categoria": "Vivienda",   "monto": 300.0, "descripcion": "Arriendo", "fecha": "2026-06-02" },
+    { "tipo": "gasto", "categoria": "Comida",     "monto": 60.0,  "descripcion": "Almuerzos", "fecha": "2026-06-05" },
+    { "tipo": "gasto", "categoria": "Comida",     "monto": 45.0,  "descripcion": "Supermercado", "fecha": "2026-06-10" },
+    { "tipo": "gasto", "categoria": "Comida",     "monto": 30.0,  "descripcion": "Café", "fecha": "2026-06-12" },
+    { "tipo": "gasto", "categoria": "Transporte", "monto": 25.0,  "descripcion": "Pasaje de bus", "fecha": "2026-06-04" },
+    { "tipo": "gasto", "categoria": "Transporte", "monto": 20.0,  "descripcion": "Taxi", "fecha": "2026-06-08" },
+    { "tipo": "gasto", "categoria": "Educación",  "monto": 50.0,  "descripcion": "Libros", "fecha": "2026-06-06" },
+    { "tipo": "gasto", "categoria": "Ocio",       "monto": 30.0,  "descripcion": "Videojuego", "fecha": "2026-06-09" }
+  ],
+  "limites": {
+    "Comida": 200.0,
+    "Transporte": 80.0,
+    "Vivienda": 300.0,
+    "Educación": 150.0,
+    "Ocio": 100.0
+  }
+}

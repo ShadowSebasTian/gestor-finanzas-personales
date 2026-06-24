@@ -1,0 +1,14 @@
+%% Diagrama de flujo — Semáforo de alertas (condicional escalonado if/elif/else)
+flowchart TD
+    A([Inicio]) --> B[Calcular % = gastado / límite]
+    B --> C{¿% >= 100%?}
+    C -- Sí --> C1[/🔴 SOBREGIRO/]
+    C -- No --> D{¿% >= 80%?}
+    D -- Sí --> D1[/🟠 Atención/]
+    D -- No --> E{¿% >= 50%?}
+    E -- Sí --> E1[/🟡 Aviso/]
+    E -- No --> F1[/🟢 Bajo control/]
+    C1 --> Z([Fin])
+    D1 --> Z
+    E1 --> Z
+    F1 --> Z

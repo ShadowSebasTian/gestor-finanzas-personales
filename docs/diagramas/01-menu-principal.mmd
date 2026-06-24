@@ -1,0 +1,10 @@
+%% Diagrama de flujo — Bucle del menú principal (main.py)
+flowchart TD
+    A([Inicio]) --> B[/Cargar datos guardados/]
+    B --> C[Mostrar saldo y menú]
+    C --> D[/Leer opción del usuario/]
+    D --> E{¿Opción = Salir?}
+    E -- No --> F[Ejecutar la acción elegida]
+    F --> C
+    E -- Sí --> G[/Guardar datos opcional/]
+    G --> H([Fin])

@@ -1,0 +1,11 @@
+%% Diagrama de flujo — Ver resumen (acumulación por categoría con un bucle)
+flowchart TD
+    A([Inicio]) --> B[Calcular ingresos, gastos y saldo]
+    B --> C{¿Hay gastos?}
+    C -- No --> D[Mostrar: sin gastos]
+    D --> H([Fin])
+    C -- Sí --> E{¿Quedan categorías\n por recorrer?}
+    E -- Sí --> F[Acumular total de la categoría]
+    F --> E
+    E -- No --> G[Mostrar desglose y promedio]
+    G --> H

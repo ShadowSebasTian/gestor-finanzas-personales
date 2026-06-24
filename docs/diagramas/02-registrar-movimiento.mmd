@@ -1,0 +1,13 @@
+%% Diagrama de flujo — Registrar ingreso o gasto (con validación)
+flowchart TD
+    A([Inicio]) --> B[/Pedir monto/]
+    B --> C{¿Monto válido?\n número y > 0}
+    C -- No --> D[Mostrar error]
+    D --> B
+    C -- Sí --> E[/Elegir categoría/]
+    E --> F[/Pedir descripción y fecha/]
+    F --> G[Registrar movimiento]
+    G --> H{¿Es gasto y supera\n el 30% del límite?}
+    H -- Sí --> I[Mostrar alerta]
+    H -- No --> J([Fin])
+    I --> J

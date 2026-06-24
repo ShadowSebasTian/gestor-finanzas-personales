@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Datos locales del usuario (no se versionan; se parte del ejemplo)
+datos/finanzas.json
+
+# Sistema
+.DS_Store
+Thumbs.db
