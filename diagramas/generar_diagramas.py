@@ -28,13 +28,14 @@ TW, TH = 2.2, 0.9      # terminal (inicio/fin)
 
 
 def _texto(ax, x, y, t, color=TEXTO, size=9, bold=False):
+    # clip_on=False: el texto nunca se recorta aunque quede cerca del borde del eje.
     ax.text(x, y, t, ha="center", va="center", fontsize=size, color=color,
-            weight="bold" if bold else "normal", zorder=5, wrap=True)
+            weight="bold" if bold else "normal", zorder=5, wrap=True, clip_on=False)
 
 
 def proceso(ax, x, y, t, fill="white", fg=TEXTO, w=PW, h=PH):
     ax.add_patch(Rectangle((x - w / 2, y - h / 2), w, h, facecolor=fill,
-                           edgecolor=GRANATE, linewidth=1.6, zorder=3))
+                           edgecolor=GRANATE, linewidth=1.6, zorder=3, clip_on=False))
     _texto(ax, x, y, t, color=fg)
     return {"x": x, "y": y, "w": w, "h": h, "kind": "rect"}
 
@@ -44,7 +45,7 @@ def entrada_salida(ax, x, y, t, w=PW, h=PH):
     pts = [(x - w / 2 + s, y + h / 2), (x + w / 2 + s, y + h / 2),
            (x + w / 2 - s, y - h / 2), (x - w / 2 - s, y - h / 2)]
     ax.add_patch(Polygon(pts, closed=True, facecolor=ORO_CLARO,
-                         edgecolor=DORADO, linewidth=1.6, zorder=3))
+                         edgecolor=DORADO, linewidth=1.6, zorder=3, clip_on=False))
     _texto(ax, x, y, t)
     return {"x": x, "y": y, "w": w, "h": h, "kind": "io"}
 
@@ -52,7 +53,7 @@ def entrada_salida(ax, x, y, t, w=PW, h=PH):
 def decision(ax, x, y, t, hw=DHW, hh=DHH):
     pts = [(x, y + hh), (x + hw, y), (x, y - hh), (x - hw, y)]
     ax.add_patch(Polygon(pts, closed=True, facecolor=ROSA,
-                         edgecolor=GRANATE, linewidth=1.6, zorder=3))
+                         edgecolor=GRANATE, linewidth=1.6, zorder=3, clip_on=False))
     _texto(ax, x, y, t, size=8.5)
     return {"x": x, "y": y, "w": hw * 2, "h": hh * 2, "kind": "diamond"}
 
@@ -60,7 +61,8 @@ def decision(ax, x, y, t, hw=DHW, hh=DHH):
 def terminal(ax, x, y, t, w=TW, h=TH):
     ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h,
                                 boxstyle="round,pad=0.02,rounding_size=0.45",
-                                facecolor=GRANATE, edgecolor=GRANATE, zorder=3))
+                                facecolor=GRANATE, edgecolor=GRANATE, zorder=3,
+                                clip_on=False))
     _texto(ax, x, y, t, color="white", bold=True)
     return {"x": x, "y": y, "w": w, "h": h, "kind": "term"}
 
@@ -79,32 +81,34 @@ def flecha(ax, p1, p2, label=None, lpos=0.5, ldx=0.0, ldy=0.0):
     """Flecha recta de p1 a p2, con etiqueta opcional (Sí/No)."""
     ax.annotate("", xy=p2, xytext=p1,
                 arrowprops=dict(arrowstyle="-|>", color="#444", lw=1.6,
-                                shrinkA=0, shrinkB=0), zorder=2)
+                                shrinkA=0, shrinkB=0), zorder=2, annotation_clip=False)
     if label:
         lx = p1[0] + (p2[0] - p1[0]) * lpos + ldx
         ly = p1[1] + (p2[1] - p1[1]) * lpos + ldy
         ax.text(lx, ly, label, fontsize=8, color=GRANATE, ha="center", va="center",
-                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none"), zorder=4)
+                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none"),
+                zorder=4, clip_on=False)
 
 
 def ruta(ax, pts, label=None, lidx=0):
     """Polilínea (codos) por varios puntos; flecha solo en el último tramo."""
     for i in range(len(pts) - 2):
         ax.plot([pts[i][0], pts[i + 1][0]], [pts[i][1], pts[i + 1][1]],
-                color="#444", lw=1.6, zorder=2)
+                color="#444", lw=1.6, zorder=2, clip_on=False)
     ax.annotate("", xy=pts[-1], xytext=pts[-2],
                 arrowprops=dict(arrowstyle="-|>", color="#444", lw=1.6,
-                                shrinkA=0, shrinkB=0), zorder=2)
+                                shrinkA=0, shrinkB=0), zorder=2, annotation_clip=False)
     if label:
         p1, p2 = pts[lidx], pts[lidx + 1]
         ax.text((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2 + 0.25, label, fontsize=8,
                 color=GRANATE, ha="center", va="center",
-                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none"), zorder=4)
+                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none"),
+                zorder=4, clip_on=False)
 
 
 def linea(ax, p1, p2):
     """Tramo sin flecha (para unir a un bus de salida)."""
-    ax.plot([p1[0], p2[0]], [p1[1], p2[1]], color="#444", lw=1.6, zorder=2)
+    ax.plot([p1[0], p2[0]], [p1[1], p2[1]], color="#444", lw=1.6, zorder=2, clip_on=False)
 
 
 def lienzo(xlim, ylim, titulo):
@@ -127,7 +131,7 @@ def guardar(fig, nombre):
 
 # ============================================================ Diagrama 1
 def d1_menu():
-    fig, ax = lienzo((-1, 7), (-1.4, 13), "1. Bucle del menú principal")
+    fig, ax = lienzo((-2, 7), (-1.4, 13), "1. Bucle del menú principal")
     A = terminal(ax, 0, 12, "Inicio")
     B = entrada_salida(ax, 0, 10, "Cargar datos\nguardados")
     C = proceso(ax, 0, 8, "Mostrar saldo\ny menú")
@@ -150,7 +154,7 @@ def d1_menu():
 
 # ============================================================ Diagrama 2
 def d2_registrar():
-    fig, ax = lienzo((-5, 4), (-4.0, 13), "2. Registrar ingreso o gasto")
+    fig, ax = lienzo((-5.8, 4), (-4.0, 13), "2. Registrar ingreso o gasto")
     A = terminal(ax, 0, 12, "Inicio")
     B = entrada_salida(ax, 0, 10, "Pedir monto")
     C = decision(ax, 0, 7.7, "¿Monto válido?\n(número y > 0)")
@@ -202,7 +206,7 @@ def d3_resumen():
 
 # ============================================================ Diagrama 4
 def d4_alertas():
-    fig, ax = lienzo((-1, 9), (0, 13), "4. Semáforo de alertas (if / elif / else)")
+    fig, ax = lienzo((-2.5, 9), (-0.3, 13), "4. Semáforo de alertas (if / elif / else)")
     A = terminal(ax, 0, 12, "Inicio")
     B = proceso(ax, 0, 10, "Calcular %\n= gastado / límite")
     C = decision(ax, 0, 8, "¿% ≥ 100%?")
